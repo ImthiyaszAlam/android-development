@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">MVVM</string>
+    <string name="insert_quote">Insert Quote</string>
+</resources>
