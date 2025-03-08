@@ -6,10 +6,25 @@ import javax.inject.Inject
 
 const val TAG = "HILT"
 
-class UserRepository @Inject constructor(val loggerService: LoggerService) {
-    fun saveUser(email: String, password: String) {
-        Log.d(TAG, "saved to db")
-        val message = "Logging"
-        loggerService.log(message)
+interface UserRepo {
+    fun saveUser(email: String, password: String)
+}
+
+class UserRepository @Inject constructor() : UserRepo {
+    override fun saveUser(email: String, password: String) {
+        Log.d(TAG, "Saved to user DB")
     }
+}
+
+class FirebaseRepository : UserRepo {
+    override fun saveUser(email: String, password: String) {
+        Log.d(TAG, "user saved in firebase")
+    }
+}
+
+class AWSRepository : UserRepo {
+    override fun saveUser(email: String, password: String) {
+        Log.d(TAG, "Saved to AWS")
+    }
+
 }

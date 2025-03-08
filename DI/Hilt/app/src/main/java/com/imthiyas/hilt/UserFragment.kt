@@ -15,6 +15,7 @@ class UserFragment : Fragment() {
 
     @Inject
     private lateinit var userRepository: UserRepository
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
