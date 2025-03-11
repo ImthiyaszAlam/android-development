@@ -14,9 +14,10 @@ class UserRepository @Inject constructor() : UserRepo {
     override fun saveUser(email: String, password: String) {
         Log.d(TAG, "Saved to user DB")
     }
+
 }
 
-class FirebaseRepository : UserRepo {
+class FirebaseRepository @Inject constructor() : UserRepo {
     override fun saveUser(email: String, password: String) {
         Log.d(TAG, "user saved in firebase")
     }
