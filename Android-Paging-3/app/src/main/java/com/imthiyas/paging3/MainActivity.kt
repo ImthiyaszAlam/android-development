@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.imthiyas.paging3.paging.LoaderAdapter
 import com.imthiyas.paging3.paging.QuotePagingAdapter
 import com.imthiyas.paging3.viewmodel.QuoteViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,7 +35,10 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(true)
-        recyclerView.adapter = pagingAdapter
+        recyclerView.adapter = pagingAdapter.withLoadStateHeaderAndFooter(
+            header = LoaderAdapter(),
+            footer = LoaderAdapter()
+        )
 
         quoteViewModel.quoteList.observe(this, Observer {
             pagingAdapter.submitData(lifecycle, it)
