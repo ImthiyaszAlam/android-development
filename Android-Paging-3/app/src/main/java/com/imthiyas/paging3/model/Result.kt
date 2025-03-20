@@ -1,16 +1,18 @@
 package com.imthiyas.paging3.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-data class Result(
 
-    @SerializedName("_id")
-    val id: String,
+@Entity("QuoteResultTable")
+data class Result(
+    @PrimaryKey(autoGenerate = false)
+    val _id: String,
     val author: String,
     val authorSlug: String,
     val content: String,
     val dateAdded: String,
     val dateModified: String,
-    val length: Int,
-    val tags: List<String>
+    val length: Int
 )

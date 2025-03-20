@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -80,5 +81,20 @@ dependencies {
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.ui:ui-tooling-preview")
     debugImplementation("androidx.compose.ui:ui-tooling")
+
+
+    val room_version = "2.6.1" // Check for latest version
+
+    implementation("androidx.room:room-runtime:$room_version")
+    annotationProcessor("androidx.room:room-compiler:$room_version")
+
+    // For Kotlin (use KSP instead of annotationProcessor)
+    ksp("androidx.room:room-compiler:$room_version")
+
+    // Room with Kotlin Coroutines support
+    implementation("androidx.room:room-ktx:$room_version")
+
+    // Room Paging 3 Integration
+    implementation("androidx.room:room-paging:$room_version")
 
 }
