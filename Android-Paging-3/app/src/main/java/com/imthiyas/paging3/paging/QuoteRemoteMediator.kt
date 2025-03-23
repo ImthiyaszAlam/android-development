@@ -27,13 +27,28 @@ class QuoteRemoteMediator(
     override suspend fun load(loadType: LoadType, state: PagingState<Int, Result>): MediatorResult {
         return try {
             val currentPage = when (loadType) {
-                LoadType.REFRESH -> {}
+                LoadType.REFRESH -> {
+                    val remoteKeys = getRemoteKeysForCurrentItem(state)
+                    remoteKeys?.nextPage?.minus(1) ?: 1
+                }
 
-                //Scroll up
-                LoadType.APPEND -> {}
+                //New Data  up
+                LoadType.APPEND -> {
+                    val remoteKeys = getRemoteKeysForLastItem(state)
+                    val nextPage = remoteKeys?.nextPage ?: return MediatorResult.Success(
+                        endOfPaginationReached = remoteKeys != null
+                    )
+                    nextPage
+                }
 
-                //Scroll down
-                LoadType.PREPEND -> {}
+                //Loaded previous data
+                LoadType.PREPEND -> {
+                    val remoteKeys = getRemoteKeysForFirstItem(state)
+                    val prevPage = remoteKeys?.prevPage ?: return MediatorResult.Success(
+                        endOfPaginationReached = remoteKeys != null
+                    )
+                    prevPage
+                }
             }
             val apiResponseForPage = quotesAPI.getQuotes(currentPage)
             val paginationEndReach = apiResponseForPage.totalPage == currentPage
@@ -55,6 +70,31 @@ class QuoteRemoteMediator(
 
         } catch (e: Exception) {
             MediatorResult.Error(e)
+        }
+
+    }
+
+    private suspend fun getRemoteKeysForLastItem(state: PagingState<Int, Result>): QuoteRemoteKeys? {
+        return state.pages.lastOrNull {
+            it.data.isNotEmpty()
+        }?.data?.lastOrNull()?.let { quote ->
+            quoteRemoteKeysDao.getRemoteKeys(id = quote._id)
+        }
+    }
+
+    private suspend fun getRemoteKeysForFirstItem(state: PagingState<Int, Result>): QuoteRemoteKeys? {
+        return state.pages.firstOrNull() {
+            it.data.isNotEmpty()
+        }?.data?.firstOrNull()?.let { quote ->
+            quoteRemoteKeysDao.getRemoteKeys(id = quote._id)
+        }
+    }
+
+    private suspend fun getRemoteKeysForCurrentItem(state: PagingState<Int, Result>): QuoteRemoteKeys? {
+        return state.anchorPosition?.let { position ->
+            state.closestItemToPosition(position)?._id?.let { id ->
+                quoteRemoteKeysDao.getRemoteKeys(id = id)
+            }
         }
     }
 }
