@@ -21,6 +21,7 @@ class OfferService : Service() {
 
     lateinit var handlerThread: HandlerThread
     lateinit var handler: Handler
+    lateinit var notificationBuilder: NotificationCompat.Builder
 
 
     override fun onCreate() {
@@ -31,11 +32,22 @@ class OfferService : Service() {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        startOfferForegroundService()
         handler.post {
             trackSeconds()
+            stopSelf()
         }
         return super.onStartCommand(intent, flags, startId)
+    }
+
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun startOfferForegroundService() {
+        notificationBuilder = getNotificationBuilder()
+        createNotificationChannel(this)
+        startForeground(111, notificationBuilder.build())
     }
 
 
@@ -72,11 +84,15 @@ class OfferService : Service() {
     private fun trackSeconds() {
         for (i in 10 downTo 1) {
             Thread.sleep(1000)
+            val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+            notificationBuilder.setContentText("${i} seconds to ready")
+            notificationManager.notify(111,notificationBuilder.build())
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        handlerThread.quitSafely()
     }
 
     override fun onBind(intent: Intent?): IBinder? {
