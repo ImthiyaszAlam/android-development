@@ -7,6 +7,10 @@ android {
     namespace = "com.imthiyas.service"
     compileSdk = 35
 
+    viewBinding {
+        enable = true
+    }
+
     defaultConfig {
         applicationId = "com.imthiyas.service"
         minSdk = 24

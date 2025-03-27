@@ -33,6 +33,13 @@
             android:enabled="true"
             android:exported="false"
             android:foregroundServiceType="dataSync" />
+
+        <service
+            android:name=".backgroundService.LoggerService"
+            android:enabled="true"
+            android:exported="false" />
+
+
     </application>
 
 </manifest>

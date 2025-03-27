@@ -52,4 +52,7 @@ class MainActivity : AppCompatActivity() {
     private fun printStatus(name: String) {
         Log.d(Activity_TAG, name)
     }
+
+
+
 }
