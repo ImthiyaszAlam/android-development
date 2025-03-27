@@ -31,18 +31,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         doWorkerWork()
 
-
-
-        binding.startServiceBtn.setOnClickListener {
-            startService(Intent(this, LoggerService::class.java))
-        }
-
-        binding.stopServiceBtn.setOnClickListener {
-            stopService(Intent(this, LoggerService::class.java))
-        }
-
     }
-
 
     private fun doWorkerWork() {
         val request = OneTimeWorkRequest.Builder(DemoWorker::class.java)

@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
@@ -19,6 +18,12 @@
         android:theme="@style/Theme.Service"
         tools:targetApi="31">
         <activity
+            android:name=".foregroundActivity.ForegroundServiceActivity"
+            android:exported="false" />
+        <activity
+            android:name=".backgroundService.BackgroundServiceActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -27,19 +32,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<!--
+        <!--
         <service
             android:name=".service.OfferService"
             android:enabled="true"
             android:exported="false"
-            android:foregroundServiceType="dataSync" />-->
-
+            android:foregroundServiceType="dataSync" />
+        -->
         <service
             android:name=".backgroundService.LoggerService"
             android:enabled="true"
             android:exported="false" />
-
-
     </application>
 
 </manifest>
