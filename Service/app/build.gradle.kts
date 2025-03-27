@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.storage.CacheResetOnProcessCanceled.enabled
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -7,9 +9,10 @@ android {
     namespace = "com.imthiyas.service"
     compileSdk = 35
 
-    viewBinding {
-        enable = true
+    buildFeatures {
+        viewBinding = true
     }
+
 
     defaultConfig {
         applicationId = "com.imthiyas.service"

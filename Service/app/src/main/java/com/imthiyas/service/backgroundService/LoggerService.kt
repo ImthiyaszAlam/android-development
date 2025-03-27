@@ -4,6 +4,7 @@ import android.app.Service
 import android.content.Intent
 import android.os.IBinder
 import android.util.Log
+import kotlin.concurrent.thread
 
 class LoggerService : Service() {
 
@@ -25,6 +26,12 @@ class LoggerService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         Log.d(BACKGROUND_SERVICE, "onStartCommand called")
+        thread(start = true) {
+            while (true) {
+                Log.d(BACKGROUND_SERVICE, "Logging Messages")
+                Thread.sleep(1000)
+            }
+        }
         return super.onStartCommand(intent, flags, startId)
     }
 

@@ -1,5 +1,6 @@
 package com.imthiyas.service
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
@@ -12,20 +13,36 @@ import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequest
 import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
+import com.imthiyas.service.backgroundService.LoggerService
+import com.imthiyas.service.databinding.ActivityMainBinding
 import com.imthiyas.service.worker.DemoWorker
 import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
 
-    private val workManager = WorkManager.getInstance(this)
 
+    private lateinit var binding: ActivityMainBinding
+    private val workManager = WorkManager.getInstance(this)
     private val Activity_TAG = "ActivityDebug"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater) // Initialize binding
+        setContentView(binding.root)
         doWorkerWork()
 
+
+
+        binding.startServiceBtn.setOnClickListener {
+            startService(Intent(this, LoggerService::class.java))
+        }
+
+        binding.stopServiceBtn.setOnClickListener {
+            stopService(Intent(this, LoggerService::class.java))
+        }
+
     }
+
 
     private fun doWorkerWork() {
         val request = OneTimeWorkRequest.Builder(DemoWorker::class.java)
@@ -52,7 +69,6 @@ class MainActivity : AppCompatActivity() {
     private fun printStatus(name: String) {
         Log.d(Activity_TAG, name)
     }
-
 
 
 }
