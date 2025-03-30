@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace = "com.imthiyas.kotlinflows"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.imthiyas.kotlinflows"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -38,6 +38,7 @@ android {
 dependencies {
 
     implementation(libs.androidx.core.ktx)
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
