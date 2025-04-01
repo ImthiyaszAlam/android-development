@@ -10,6 +10,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.buffer
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flow
@@ -96,10 +97,13 @@ class MainActivity : AppCompatActivity() {
         list.forEach {
             delay(1000)
             emit(it)
+            throw Exception("Eaception")
         }
-
-
     }
+        .catch {
+            Log.d(TAG, "${it.message}")
+            emit(-1)
+        }
 
     private fun getNotes(): Flow<Note> {
         val list = listOf(
