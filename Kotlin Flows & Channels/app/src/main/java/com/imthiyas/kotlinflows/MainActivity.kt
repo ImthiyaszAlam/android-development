@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.buffer
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
@@ -37,10 +38,23 @@ class MainActivity : AppCompatActivity() {
 
             val time = measureTimeMillis {
                 producer()
+                    .map {
+                        delay(1000)
+                        it * 2
+                        Log.d(TAG, Thread.currentThread().name)
+                    }
+                    .filter {
+                        delay(500)
+                        Log.d(TAG, Thread.currentThread().name)
+                        it < 8
+
+                    }
+                    .flowOn(Dispatchers.IO)
                     .buffer(3)
                     .collect {
                         delay(1500)
                         Log.d(TAG, it.toString())
+                        Log.d(TAG, Thread.currentThread().name)
                     }
             }
 
@@ -83,6 +97,8 @@ class MainActivity : AppCompatActivity() {
             delay(1000)
             emit(it)
         }
+
+
     }
 
     private fun getNotes(): Flow<Note> {
