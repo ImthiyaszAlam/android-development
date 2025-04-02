@@ -4,6 +4,10 @@ plugins {
 }
 
 android {
+
+    viewBinding {
+        enable = true
+    }
     namespace = "com.imthiyas.rxjava"
     compileSdk = 35
 
