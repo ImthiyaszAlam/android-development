@@ -26,6 +26,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(mainBinding.root)
 
         simpleObserver()
+        createObservable()
+    }
+
+    private fun createObservable() {
+        TODO("Not yet implemented")
     }
 
     private fun simpleObserver() {
