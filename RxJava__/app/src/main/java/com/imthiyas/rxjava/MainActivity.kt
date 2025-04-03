@@ -30,7 +30,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun createObservable() {
-        TODO("Not yet implemented")
+        val observable = Observable.create<String> {
+            it.onNext("One")
+            it.onNext("Two")
+            it.onNext("Three")
+            it.onNext("Four")
+            it.onNext("Five")
+            it.onComplete()
+        }
     }
 
     private fun simpleObserver() {
