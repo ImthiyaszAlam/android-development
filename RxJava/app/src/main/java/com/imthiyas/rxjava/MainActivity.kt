@@ -33,12 +33,26 @@ class MainActivity : AppCompatActivity() {
         /*      simpleObserver()
               createObservable()*/
 
-        val button = findViewById<Button>(R.id.btn)
-        button.clicks()
-            .throttleFirst(1000, TimeUnit.MILLISECONDS)
-            .subscribe {
-                Log.d(TAG, "Button Clicked")
-            }
+        /*  val button = findViewById<Button>(R.id.btn)
+          button.clicks()
+              .throttleFirst(1000, TimeUnit.MILLISECONDS)
+              .subscribe {
+                  Log.d(TAG, "Button Clicked")
+              }*/
+
+
+        val apiResponse = ProductItem(
+            id = 1,
+            image = "image.png",
+            price = 12.2,
+            title = "Title",
+            category = "Category",
+            description = "Description"
+        )
+
+        val request = 123
+        val response = RetrofitClient.apiService.getProducts()
+
     }
 
     private fun createObservable() {
