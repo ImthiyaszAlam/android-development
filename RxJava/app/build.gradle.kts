@@ -50,7 +50,7 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     // Retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
 
     // Converter for JSON (Moshi/Gson)
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
@@ -63,4 +63,5 @@ dependencies {
 
     // RxAndroid (for Android-specific threading)
     implementation("io.reactivex.rxjava3:rxandroid:3.0.2")
+    implementation("com.jakewharton.rxbinding4:rxbinding-core:4.0.0")
 }

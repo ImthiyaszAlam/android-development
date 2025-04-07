@@ -1,15 +1,19 @@
 package com.imthiyas.rxjava
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.imthiyas.rxjava.databinding.ActivityMainBinding
+import com.jakewharton.rxbinding4.view.clicks
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
+import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,14 +23,22 @@ class MainActivity : AppCompatActivity() {
         const val TAG = "MainActivityTag"
     }
 
+    @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainBinding.root)
 
-        simpleObserver()
-        createObservable()
+        /*      simpleObserver()
+              createObservable()*/
+
+        val button = findViewById<Button>(R.id.btn)
+        button.clicks()
+            .throttleFirst(1000, TimeUnit.MILLISECONDS)
+            .subscribe {
+                Log.d(TAG, "Button Clicked")
+            }
     }
 
     private fun createObservable() {
