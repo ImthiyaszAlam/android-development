@@ -10,9 +10,12 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.imthiyas.rxjava.databinding.ActivityMainBinding
 import com.jakewharton.rxbinding4.view.clicks
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Observer
+import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
@@ -52,6 +55,12 @@ class MainActivity : AppCompatActivity() {
 
         val request = 123
         val response = RetrofitClient.apiService.getProducts()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                Log.d(TAG, it.toString())
+                it.toString()
+            }
 
     }
 
