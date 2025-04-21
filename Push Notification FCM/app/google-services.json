@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "806508954361",
+    "project_id": "push-fcm-33de7",
+    "storage_bucket": "push-fcm-33de7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:806508954361:android:3184239744d2f2d3ea1828",
+        "android_client_info": {
+          "package_name": "com.imthiyas.fcm"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbsv-5Fu2ODOsomSmicw_8nTUgXBrUTV4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
