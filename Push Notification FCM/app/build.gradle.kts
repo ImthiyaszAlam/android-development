@@ -8,6 +8,10 @@ android {
     namespace = "com.imthiyas.fcm"
     compileSdk = 35
 
+
+    buildFeatures {
+        compose = true
+    }
     defaultConfig {
         applicationId = "com.imthiyas.fcm"
         minSdk = 24
@@ -51,4 +55,9 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.moshi:moshi:1.15.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.11.0")
+    implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.material3:material3")
+    implementation("androidx.compose.ui:ui-tooling-preview")
+    implementation("androidx.compose.runtime:runtime:1.6.6")
+
 }
