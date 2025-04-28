@@ -1,5 +1,6 @@
 package com.imthiyas.fcm
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -8,7 +9,9 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
@@ -77,11 +80,21 @@ fun EnterTokenDialog(
                         scope.launch {
                             val token = Firebase.messaging.token.await()
                             clipboardManager.setText(AnnotatedString(token))
+                            Toast.makeText(context, "Copied Local Token", Toast.LENGTH_LONG).show()
                         }
                     }
                 ) {
                     Text("Copy Token")
                 }
+            }
+
+            Spacer(
+                Modifier.width(16.dp)
+            )
+            Button(
+                onClick = onSubmit
+            ) {
+                Text("Submit")
             }
         }
     }
