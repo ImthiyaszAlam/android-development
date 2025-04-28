@@ -22,7 +22,13 @@ class ChatViewModel : ViewModel() {
 
     fun onRemoteTokenChange(token: String) {
         state = state.copy(
-            
+            remoteTokenText = token
+        )
+    }
+
+    fun onSubmitRemoteToken(){
+        state = state.copy(
+            isEnteringToken = false
         )
     }
 }
