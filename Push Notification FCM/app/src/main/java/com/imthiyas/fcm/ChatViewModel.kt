@@ -26,9 +26,15 @@ class ChatViewModel : ViewModel() {
         )
     }
 
-    fun onSubmitRemoteToken(){
+    fun onSubmitRemoteToken() {
         state = state.copy(
             isEnteringToken = false
+        )
+    }
+
+    fun onMessageChange(message: String) {
+        state = state.copy(
+            messageText = message
         )
     }
 }
