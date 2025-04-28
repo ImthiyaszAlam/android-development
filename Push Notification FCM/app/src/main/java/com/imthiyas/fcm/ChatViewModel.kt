@@ -4,6 +4,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.create
@@ -36,5 +38,23 @@ class ChatViewModel : ViewModel() {
         state = state.copy(
             messageText = message
         )
+    }
+
+    fun sendMessage(isBroadCast: Boolean) {
+        viewModelScope.launch {
+            val sendMessageDto = SendMessageDto(
+                to = if (isBroadCast) null else state.remoteTokenText,
+                notification = NotificationBody(
+                    title = "Alam",
+                    body = state.messageText
+                )
+            )
+
+            if (isBroadCast) {
+                api.broadCast(sendMessageDto)
+            } else {
+                api.sendMessage(sendMessageDto)
+            }
+        }
     }
 }
