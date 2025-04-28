@@ -53,6 +53,11 @@ dependencies {
 
 
     implementation(platform("com.google.firebase:firebase-bom:33.12.0"))
+
+
+    implementation(platform("androidx.compose:compose-bom:2024.04.01"))
+
+
     implementation("com.google.firebase:firebase-messaging")
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.moshi:moshi:1.15.0")
@@ -66,5 +71,6 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
+    implementation("androidx.compose.ui:ui-platform")
 
 }
