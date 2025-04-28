@@ -1,5 +1,6 @@
 package com.imthiyas.fcm
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -50,10 +51,18 @@ class ChatViewModel : ViewModel() {
                 )
             )
 
-            if (isBroadCast) {
-                api.broadCast(sendMessageDto)
-            } else {
-                api.sendMessage(sendMessageDto)
+            try {
+                if (isBroadCast) {
+                    api.broadCast(sendMessageDto)
+                } else {
+                    api.sendMessage(sendMessageDto)
+                }
+                state = state.copy(
+                    messageText = ""
+                )
+            } catch (e: Exception) {
+                val message = e.message ?: "Unknown Error"
+                Log.d("Error", "$message")
             }
         }
     }
