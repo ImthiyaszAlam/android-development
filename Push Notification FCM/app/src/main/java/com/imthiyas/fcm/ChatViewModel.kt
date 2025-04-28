@@ -21,6 +21,8 @@ class ChatViewModel : ViewModel() {
         .create()
 
     fun onRemoteTokenChange(token: String) {
-
+        state = state.copy(
+            
+        )
     }
 }
