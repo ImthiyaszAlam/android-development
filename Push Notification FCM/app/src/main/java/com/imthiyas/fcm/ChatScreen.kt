@@ -56,15 +56,9 @@ fun ChatScreen(
             horizontalArrangement = Arrangement.End
         ) {
             OutlinedButton(
-                onClick = {
-                    scope.launch {
-                        val token = Firebase.messaging.token.await()
-                        clipboardManager.setText(AnnotatedString(token))
-                        Toast.makeText(context, "Copied Local Token", Toast.LENGTH_LONG).show()
-                    }
-                }
+                onClick =
             ) {
-                Text("Copy Token")
+
             }
         }
 
