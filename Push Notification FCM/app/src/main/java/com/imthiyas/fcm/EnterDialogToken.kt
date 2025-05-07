@@ -86,6 +86,7 @@ fun EnterTokenDialog(
                 ) {
                     Text("Copy Token")
                 }
+
             }
 
             Spacer(
