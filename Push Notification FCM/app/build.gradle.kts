@@ -55,7 +55,7 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:33.12.0"))
 
 
-    implementation(platform("androidx.compose:compose-bom:2024.04.01"))
+    implementation(platform("androidx.compose:compose-bom:2025.04.01"))
 
 
     implementation("com.google.firebase:firebase-messaging")
@@ -64,6 +64,7 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-moshi:2.11.0")
 
     implementation("androidx.compose.ui:ui")
+    implementation("androidx.activity:activity-compose")
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.runtime:runtime:1.6.6")
