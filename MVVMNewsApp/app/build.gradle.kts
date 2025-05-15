@@ -54,12 +54,18 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+
+    // Gson Converter for Retrofit (for JSON parsing)
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    // OkHttp (for logging HTTP requests)
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.2")
 
     implementation("androidx.navigation:navigation-fragment-ktx:2.9.0")
     implementation("androidx.navigation:navigation-ui-ktx:2.9.0")
 
-    // Optional: If you're using Safe Args
-    // NOTE: Plugin configuration also required (see below)
     implementation("androidx.navigation:navigation-dynamic-features-fragment:2.9.0")
 
 }
