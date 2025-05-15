@@ -1,10 +1,11 @@
-package com.imthiyas.mvvmnewsapp
+package com.imthiyas.mvvmnewsapp.ui
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.imthiyas.mvvmnewsapp.R
 
 class NewsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
