@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("androidx.navigation.safeargs.kotlin")
+    kotlin("kapt")
 }
 
 android {
@@ -67,5 +68,11 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.9.0")
 
     implementation("androidx.navigation:navigation-dynamic-features-fragment:2.9.0")
+
+    // Room runtime
+    implementation("androidx.room:room-runtime:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.room:room-paging:2.6.1")
 
 }
