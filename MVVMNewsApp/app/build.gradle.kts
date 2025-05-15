@@ -1,9 +1,15 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
+
+
+    buildFeatures {
+        viewBinding = true // or dataBinding = true, if you're using those
+    }
     namespace = "com.imthiyas.mvvmnewsapp"
     compileSdk = 34
 
@@ -42,7 +48,18 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+
+    implementation("androidx.navigation:navigation-fragment-ktx:2.9.0")
+    implementation("androidx.navigation:navigation-ui-ktx:2.9.0")
+
+    // Optional: If you're using Safe Args
+    // NOTE: Plugin configuration also required (see below)
+    implementation("androidx.navigation:navigation-dynamic-features-fragment:2.9.0")
+
 }
