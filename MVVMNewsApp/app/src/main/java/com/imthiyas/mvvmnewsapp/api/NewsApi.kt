@@ -1,6 +1,6 @@
 package com.imthiyas.mvvmnewsapp.api
 
-import com.imthiyas.mvvmnewsapp.NewsResponse
+import com.imthiyas.mvvmnewsapp.db.models.NewsResponse
 import com.imthiyas.mvvmnewsapp.util.Constants.Companion.API_KEY
 import retrofit2.Response
 import retrofit2.http.GET

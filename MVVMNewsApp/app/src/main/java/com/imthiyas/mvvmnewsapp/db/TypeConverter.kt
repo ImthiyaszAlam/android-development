@@ -1,7 +1,7 @@
 package com.imthiyas.mvvmnewsapp.db
 
 import androidx.room.TypeConverter
-import com.imthiyas.mvvmnewsapp.Source
+import com.imthiyas.mvvmnewsapp.db.models.Source
 
 class TypeConverter {
     @TypeConverter

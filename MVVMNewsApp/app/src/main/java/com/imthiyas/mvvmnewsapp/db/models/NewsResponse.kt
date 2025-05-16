@@ -1,4 +1,4 @@
-package com.imthiyas.mvvmnewsapp
+package com.imthiyas.mvvmnewsapp.db.models
 
 data class NewsResponse(
     val articles: List<Article>,
