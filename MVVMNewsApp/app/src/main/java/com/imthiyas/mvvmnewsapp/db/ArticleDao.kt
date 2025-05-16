@@ -11,7 +11,7 @@ import com.imthiyas.mvvmnewsapp.db.models.Article
 @Dao
 interface ArticleDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun upsert(articleDao: ArticleDao): Long
+    suspend fun upsert(Article: Article): Long
 
 
     @Query("SELECT * FROM articles")

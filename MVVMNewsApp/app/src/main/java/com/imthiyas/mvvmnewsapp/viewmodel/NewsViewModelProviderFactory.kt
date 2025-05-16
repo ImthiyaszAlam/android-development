@@ -1,4 +1,4 @@
-package com.imthiyas.mvvmnewsapp.ui
+package com.imthiyas.mvvmnewsapp.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

@@ -5,7 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import com.imthiyas.mvvmnewsapp.R
 import com.imthiyas.mvvmnewsapp.ui.NewsActivity
-import com.imthiyas.mvvmnewsapp.ui.NewsViewModel
+import com.imthiyas.mvvmnewsapp.viewmodel.NewsViewModel
 
 class SavedNewsFragment : Fragment(R.layout.fragment_saved_news) {
 

@@ -12,6 +12,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.imthiyas.mvvmnewsapp.R
 import com.imthiyas.mvvmnewsapp.db.ArticleDatabase
 import com.imthiyas.mvvmnewsapp.repository.NewsRepository
+import com.imthiyas.mvvmnewsapp.viewmodel.NewsViewModel
+import com.imthiyas.mvvmnewsapp.viewmodel.NewsViewModelProviderFactory
 
 class NewsActivity : AppCompatActivity() {
 
