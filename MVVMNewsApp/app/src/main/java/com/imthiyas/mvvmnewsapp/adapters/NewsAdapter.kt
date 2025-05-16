@@ -1,15 +1,11 @@
 package com.imthiyas.mvvmnewsapp.adapters
 
-import android.content.ClipData.Item
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView.OnItemClickListener
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.imthiyas.mvvmnewsapp.R
 import com.imthiyas.mvvmnewsapp.databinding.ItemArticlePreviewBinding
 import com.imthiyas.mvvmnewsapp.db.models.Article
 
