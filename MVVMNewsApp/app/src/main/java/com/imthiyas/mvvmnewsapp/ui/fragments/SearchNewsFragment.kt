@@ -3,8 +3,10 @@ package com.imthiyas.mvvmnewsapp.ui.fragments
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.SearchView
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -14,19 +16,22 @@ import com.imthiyas.mvvmnewsapp.R
 import com.imthiyas.mvvmnewsapp.adapters.NewsAdapter
 import com.imthiyas.mvvmnewsapp.db.ArticleDatabase
 import com.imthiyas.mvvmnewsapp.repository.NewsRepository
-import com.imthiyas.mvvmnewsapp.ui.NewsActivity
+import com.imthiyas.mvvmnewsapp.util.Constants.Companion.SEARCH_NEWS_DELAY
 import com.imthiyas.mvvmnewsapp.util.Resource
 import com.imthiyas.mvvmnewsapp.viewmodel.NewsViewModel
 import com.imthiyas.mvvmnewsapp.viewmodel.NewsViewModelProviderFactory
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class SearchNewsFragment : Fragment(R.layout.fragment_search_news) {
 
     val TAG = "BNF"
     private lateinit var paginationProgressBar: ProgressBar
     private lateinit var rvBreakingNews: RecyclerView
-    private lateinit var searchView: SearchView
-    lateinit var newsViewModel: NewsViewModel
+    private lateinit var searchView: EditText
+    lateinit var searchViewModel: NewsViewModel
     lateinit var newsAdapter: NewsAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,15 +39,25 @@ class SearchNewsFragment : Fragment(R.layout.fragment_search_news) {
 
         val repository = NewsRepository(ArticleDatabase(requireContext()))
         val factory = NewsViewModelProviderFactory(repository)
-        newsViewModel = ViewModelProvider(this, factory)[NewsViewModel::class.java]
+        searchViewModel = ViewModelProvider(this, factory)[NewsViewModel::class.java]
 
         paginationProgressBar = requireView().findViewById(R.id.paginationProgressBar)
         rvBreakingNews = requireView().findViewById(R.id.rvBreakingNews)
         searchView = requireView().findViewById(R.id.searchView)
         setupRecyclerView()
-        val job: Job? = null
-
-        newsViewModel.searchNews.observe(viewLifecycleOwner, Observer { response ->
+        var job: Job? = null
+        searchView.addTextChangedListener { editable ->
+            job?.cancel()
+            job = MainScope().launch {
+                delay(SEARCH_NEWS_DELAY)
+                editable?.let {
+                    if (editable.toString().isNotEmpty()) {
+                        searchViewModel.searchNews(editable.toString())
+                    }
+                }
+            }
+        }
+        searchViewModel.searchNews.observe(viewLifecycleOwner, Observer { response ->
             when (response) {
                 is Resource.Success -> {
                     hideProgressBar()
