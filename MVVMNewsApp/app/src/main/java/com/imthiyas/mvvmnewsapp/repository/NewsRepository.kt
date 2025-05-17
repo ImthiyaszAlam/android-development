@@ -8,6 +8,6 @@ import java.util.Locale.IsoCountryCode
 class NewsRepository(val database: ArticleDatabase) {
 
     suspend fun getBreakingNews(countryCode: String, pageNumber: Int) =
-        RetrofitInstance.api.getBreakingNews(countryCode,pageNumber)
+        RetrofitInstance.api.getBreakingNews(countryCode, pageNumber)
 
 }

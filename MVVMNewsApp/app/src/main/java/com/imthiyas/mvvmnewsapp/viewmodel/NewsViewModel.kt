@@ -1,5 +1,6 @@
 package com.imthiyas.mvvmnewsapp.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -16,12 +17,13 @@ class NewsViewModel(val newsRepository: NewsRepository) : ViewModel() {
     val breakingNewsPage = 1
 
     init {
-        getBreakingNews("un")
+        getBreakingNews("us")
     }
 
     fun getBreakingNews(countryCode: String) = viewModelScope.launch {
         breakingNews.postValue(Resource.Loading())
         val response = newsRepository.getBreakingNews(countryCode, breakingNewsPage)
+        Log.d("response", "$response")
         breakingNews.postValue(handleBreakingNewsResponse(response))
     }
 
