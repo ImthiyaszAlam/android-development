@@ -30,6 +30,7 @@ class BreakingNewsFragment : Fragment(R.layout.fragment_breaking_news) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val repository = NewsRepository(ArticleDatabase(requireContext()))
         val factory = NewsViewModelProviderFactory(repository)
         newsViewModel = ViewModelProvider(this, factory)[NewsViewModel::class.java]
