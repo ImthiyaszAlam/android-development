@@ -10,6 +10,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.imthiyas.mvvmnewsapp.R
@@ -45,6 +46,16 @@ class SearchNewsFragment : Fragment(R.layout.fragment_search_news) {
         rvBreakingNews = requireView().findViewById(R.id.rvBreakingNews)
         searchView = requireView().findViewById(R.id.searchView)
         setupRecyclerView()
+
+        newsAdapter.setOnItemClickListener {
+            val bundle = Bundle().apply {
+                putSerializable("article", it)
+            }
+            findNavController().navigate(
+                R.id.action_searchNewsFragment_to_articleNewsFragment,bundle
+            )
+        }
+
         var job: Job? = null
         searchView.addTextChangedListener { editable ->
             job?.cancel()

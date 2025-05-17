@@ -8,6 +8,7 @@ import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.imthiyas.mvvmnewsapp.R
@@ -38,6 +39,15 @@ class BreakingNewsFragment : Fragment(R.layout.fragment_breaking_news) {
         paginationProgressBar = requireView().findViewById(R.id.paginationProgressBar)
         rvBreakingNews = requireView().findViewById(R.id.rvBreakingNews)
         setupRecyclerView()
+
+        newsAdapter.setOnItemClickListener {
+            val bundle = Bundle().apply {
+                putSerializable("article", it)
+            }
+            findNavController().navigate(
+                R.id.action_breakingNewsFragment_to_articleNewsFragment,bundle
+            )
+        }
 
         newsViewModel.breakingNews.observe(viewLifecycleOwner, Observer { response ->
             when (response) {
