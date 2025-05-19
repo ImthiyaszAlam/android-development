@@ -15,10 +15,12 @@ import java.util.Locale.IsoCountryCode
 
 class NewsViewModel(val newsRepository: NewsRepository) : ViewModel() {
     val breakingNews: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
-    val breakingNewsPage = 1
+    var breakingNewsPage = 1
+    var breakingNewsResponse: NewsResponse? = null
 
     val searchNews: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
     val searchNewsPage = 1
+    var searchNewsResponse: NewsResponse? = null
 
     init {
         getBreakingNews("us")
@@ -31,7 +33,6 @@ class NewsViewModel(val newsRepository: NewsRepository) : ViewModel() {
         breakingNews.postValue(handleBreakingNewsResponse(response))
     }
 
-
     fun searchNews(searchQuery: String) = viewModelScope.launch {
         searchNews.postValue(Resource.Loading())
         val response = newsRepository.searchNews(searchQuery, breakingNewsPage)
@@ -41,12 +42,19 @@ class NewsViewModel(val newsRepository: NewsRepository) : ViewModel() {
     private fun handleBreakingNewsResponse(response: Response<NewsResponse>): Resource<NewsResponse> {
         if (response.isSuccessful) {
             response.body()?.let { resultResponse ->
-                return Resource.Success(resultResponse)
+                breakingNewsPage++
+                if (breakingNewsResponse == null) {
+                    breakingNewsResponse = resultResponse
+                } else {
+                    val oldArticles = breakingNewsResponse?.articles
+                    val newArticles = resultResponse.articles
+                    oldArticles?.addAll(newArticles)
+                }
+                return Resource.Success(breakingNewsResponse ?: resultResponse)
             }
         }
         return Resource.Error(response.message())
     }
-
 
     private fun handleSearchNewsResponse(response: Response<NewsResponse>): Resource<NewsResponse> {
         if (response.isSuccessful) {
@@ -57,14 +65,13 @@ class NewsViewModel(val newsRepository: NewsRepository) : ViewModel() {
         return Resource.Error(response.message())
     }
 
-
     fun saveArticle(article: Article) = viewModelScope.launch {
         newsRepository.upsert(article)
     }
 
     fun getSavedNews() = newsRepository.getSavedNews()
 
-    fun deleteArticle(article: Article)=viewModelScope.launch {
+    fun deleteArticle(article: Article) = viewModelScope.launch {
         newsRepository.deleteArticle(article)
     }
 
