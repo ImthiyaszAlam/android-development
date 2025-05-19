@@ -3,7 +3,9 @@ package com.imthiyas.mvvmnewsapp.ui.fragments
 import android.app.ProgressDialog
 import android.os.Bundle
 import android.util.Log
+import android.view.AbsSavedState
 import android.view.View
+import android.widget.AbsListView
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -17,6 +19,7 @@ import com.imthiyas.mvvmnewsapp.db.ArticleDatabase
 import com.imthiyas.mvvmnewsapp.db.models.NewsResponse
 import com.imthiyas.mvvmnewsapp.repository.NewsRepository
 import com.imthiyas.mvvmnewsapp.ui.NewsActivity
+import com.imthiyas.mvvmnewsapp.util.Constants.Companion.QUERY_PAGE_SIZE
 import com.imthiyas.mvvmnewsapp.util.Resource
 import com.imthiyas.mvvmnewsapp.viewmodel.NewsViewModel
 import com.imthiyas.mvvmnewsapp.viewmodel.NewsViewModelProviderFactory
@@ -45,7 +48,7 @@ class BreakingNewsFragment : Fragment(R.layout.fragment_breaking_news) {
                 putSerializable("article", it)
             }
             findNavController().navigate(
-                R.id.action_breakingNewsFragment_to_articleNewsFragment,bundle
+                R.id.action_breakingNewsFragment_to_articleNewsFragment, bundle
             )
         }
 
@@ -81,6 +84,41 @@ class BreakingNewsFragment : Fragment(R.layout.fragment_breaking_news) {
 
     private fun showProgressBar() {
         paginationProgressBar.visibility = View.VISIBLE
+    }
+
+    val isLoading = false
+    val isLastPage = false
+    var isScrolling = false
+
+    val scrollListener = object : RecyclerView.OnScrollListener() {
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            super.onScrollStateChanged(recyclerView, newState)
+            if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
+                isScrolling = true
+            }
+        }
+
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+            val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+            val firstIemVisiblePosition = layoutManager.findFirstVisibleItemPosition()
+            val visibleItemCount = layoutManager.childCount
+            val totalItemCount = layoutManager.itemCount
+
+
+            val isNotLoadingAndNotOnLastPage = !isLoading && !isLastPage
+            val isAtLastItem = firstIemVisiblePosition + visibleItemCount >= totalItemCount
+            val isNotAtBeginning = firstIemVisiblePosition >= 0
+            val isTotalMoreThanVisible = totalItemCount >= QUERY_PAGE_SIZE
+            val shouldPaginate =
+                isNotLoadingAndNotOnLastPage && isAtLastItem && isNotAtBeginning && isTotalMoreThanVisible && isScrolling
+
+            if (shouldPaginate) {
+                newsViewModel.getBreakingNews("us")
+                isScrolling = false
+            }
+
+        }
     }
 
 
