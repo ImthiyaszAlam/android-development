@@ -36,7 +36,7 @@ class BreakingNewsFragment : Fragment(R.layout.fragment_breaking_news) {
         super.onViewCreated(view, savedInstanceState)
 
         val repository = NewsRepository(ArticleDatabase(requireContext()))
-        val factory = NewsViewModelProviderFactory(repository)
+        val factory = NewsViewModelProviderFactory(requireActivity().application, repository)
         newsViewModel = ViewModelProvider(this, factory)[NewsViewModel::class.java]
 
         paginationProgressBar = requireView().findViewById(R.id.paginationProgressBar)
