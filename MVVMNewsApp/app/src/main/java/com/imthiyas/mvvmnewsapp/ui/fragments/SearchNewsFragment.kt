@@ -77,6 +77,9 @@ class SearchNewsFragment : Fragment(R.layout.fragment_search_news) {
                         newsAdapter.differ.submitList(newsResponse.articles.toList())
                         val totalPages = newsResponse.totalResults / QUERY_PAGE_SIZE + 2
                         isLastPage = searchViewModel.searchNewsPage == totalPages
+                        if (isLastPage) {
+                            rvBreakingNews.setPadding(0, 0, 0, 0)
+                        }
                     }
                 }
 
@@ -129,8 +132,6 @@ class SearchNewsFragment : Fragment(R.layout.fragment_search_news) {
             if (shouldPaginate) {
                 searchViewModel.searchNews(searchView.text.toString())
                 isScrolling = false
-            } else {
-                rvBreakingNews.setPadding(0, 0, 0, 0)
             }
 
         }
@@ -152,7 +153,6 @@ class SearchNewsFragment : Fragment(R.layout.fragment_search_news) {
         rvBreakingNews.apply {
             adapter = newsAdapter
             layoutManager = LinearLayoutManager(requireContext())
-
             addOnScrollListener(this@SearchNewsFragment.scrollListener)
         }
     }

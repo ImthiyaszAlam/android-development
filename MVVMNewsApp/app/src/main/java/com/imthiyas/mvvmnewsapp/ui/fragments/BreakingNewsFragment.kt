@@ -60,6 +60,9 @@ class BreakingNewsFragment : Fragment(R.layout.fragment_breaking_news) {
                         newsAdapter.differ.submitList(newsResponse.articles.toList())
                         val totalPages = newsResponse.totalResults / QUERY_PAGE_SIZE + 2
                         isLastPage = newsViewModel.breakingNewsPage == totalPages
+                        if (isLastPage) {
+                            rvBreakingNews.setPadding(0, 0, 0, 0)
+                        }
                     }
                 }
 
@@ -120,8 +123,6 @@ class BreakingNewsFragment : Fragment(R.layout.fragment_breaking_news) {
             if (shouldPaginate) {
                 newsViewModel.getBreakingNews("us")
                 isScrolling = false
-            } else {
-                rvBreakingNews.setPadding(0, 0, 0, 0)
             }
 
         }
