@@ -6,7 +6,6 @@ import android.view.View
 import android.widget.AbsListView
 import android.widget.EditText
 import android.widget.ProgressBar
-import android.widget.SearchView
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -75,9 +74,9 @@ class SearchNewsFragment : Fragment(R.layout.fragment_search_news) {
                 is Resource.Success -> {
                     hideProgressBar()
                     response.data?.let { newsResponse ->
-                        newsAdapter.differ.submitList(newsResponse.articles)
+                        newsAdapter.differ.submitList(newsResponse.articles.toList())
                         val totalPages = newsResponse.totalResults / QUERY_PAGE_SIZE + 2
-                        isLastPage = searchViewModel.breakingNewsPage == totalPages
+                        isLastPage = searchViewModel.searchNewsPage == totalPages
                     }
                 }
 
@@ -140,10 +139,12 @@ class SearchNewsFragment : Fragment(R.layout.fragment_search_news) {
 
     private fun hideProgressBar() {
         paginationProgressBar.visibility = View.GONE
+        isLoading = false
     }
 
     private fun showProgressBar() {
         paginationProgressBar.visibility = View.VISIBLE
+        isLoading = true
     }
 
     private fun setupRecyclerView() {
