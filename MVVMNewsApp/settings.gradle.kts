@@ -21,4 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "MVVMNewsApp"
 include(":app")
+include(":app")
  

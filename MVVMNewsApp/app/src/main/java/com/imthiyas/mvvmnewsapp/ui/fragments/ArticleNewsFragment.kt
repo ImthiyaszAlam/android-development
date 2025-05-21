@@ -30,7 +30,7 @@ class ArticleNewsFragment : Fragment(R.layout.fragment_article_news) {
         fab = requireView().findViewById<FloatingActionButton>(R.id.fab)
 
         val repository = NewsRepository(ArticleDatabase(requireContext()))
-        val factory = NewsViewModelProviderFactory(repository)
+        val factory = NewsViewModelProviderFactory(requireActivity().application,repository)
         newsViewModel = ViewModelProvider(this, factory)[NewsViewModel::class.java]
 
 
