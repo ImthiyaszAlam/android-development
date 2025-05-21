@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.imthiyas.notes_app"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.imthiyas.notes_app"
