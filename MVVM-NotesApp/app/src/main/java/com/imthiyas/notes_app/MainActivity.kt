@@ -1,4 +1,4 @@
-package com.imthiyas.notesapp
+package com.imthiyas.notes_app
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
