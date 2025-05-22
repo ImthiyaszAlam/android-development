@@ -7,7 +7,7 @@ import com.imthiyas.notes_app.model.Note
 import com.imthiyas.notes_app.repository.NoteRepository
 import kotlinx.coroutines.launch
 
-class NoteViewModel(application: Application, private val noteRepository: NoteRepository) :
+class NoteViewModel(private val application: Application, private val noteRepository: NoteRepository) :
     AndroidViewModel(application) {
 
     fun addNote(note: Note) {
