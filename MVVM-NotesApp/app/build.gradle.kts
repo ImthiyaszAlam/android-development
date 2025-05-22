@@ -19,9 +19,9 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-    buildFeatures{
+    buildFeatures {
         dataBinding = true
-        viewBinding =true
+        viewBinding = true
     }
 
     buildTypes {
@@ -53,6 +53,13 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.9.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.0")
+    // Lifecycle components
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.9.0")
+
+    // Fragment KTX for lifecycleOwner and viewBinding
+    implementation("androidx.fragment:fragment-ktx:1.8.7")
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
 
@@ -69,10 +76,10 @@ dependencies {
     implementation("androidx.navigation:navigation-dynamic-features-fragment:2.9.0")
 
     // Room runtime
-    implementation("androidx.room:room-runtime:2.6.1")
-    implementation("androidx.room:room-ktx:2.6.1")
-    kapt("androidx.room:room-compiler:2.6.1")
-    implementation("androidx.room:room-paging:2.6.1")
+    implementation("androidx.room:room-runtime:2.7.1")
+    implementation("androidx.room:room-ktx:2.7.1")
+    kapt("androidx.room:room-compiler:2.7.1")
+    implementation("androidx.room:room-paging:2.7.1")
 
     implementation("com.github.bumptech.glide:glide:4.16.0")
 }
