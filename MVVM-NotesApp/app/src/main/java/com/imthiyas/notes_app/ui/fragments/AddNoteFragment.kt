@@ -80,7 +80,7 @@ class AddNoteFragment : Fragment(), MenuProvider {
                 true
             }
 
-            else->false
+            else -> false
         }
     }
 
