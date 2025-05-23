@@ -2,6 +2,7 @@ package com.imthiyas.notes_app.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.imthiyas.notes_app.model.Note
 import com.imthiyas.notes_app.repository.NoteRepository
@@ -28,11 +29,11 @@ class NoteViewModel(private val application: Application, private val noteReposi
         }
     }
 
-    fun getAllNotes() {
-        noteRepository.getAllNotes()
+    fun getAllNotes():LiveData<List<Note>> {
+      return  noteRepository.getAllNotes()
     }
 
-    fun searchNotes(query: String?) {
-        noteRepository.searchNote(query)
+    fun searchNotes(query: String?):LiveData<List<Note>> {
+       return noteRepository.searchNote(query)
     }
 }
