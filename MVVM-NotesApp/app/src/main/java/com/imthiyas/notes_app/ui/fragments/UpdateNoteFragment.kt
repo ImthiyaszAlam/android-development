@@ -10,11 +10,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
-import androidx.navigation.NavArgs
-import androidx.navigation.NavHost
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.imthiyas.notes_app.R
@@ -45,10 +44,12 @@ class UpdateNoteFragment : Fragment(), MenuProvider {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        requireActivity().window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.blue)
+
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
         noteViewModel = (activity as MainActivity).noteViewModel
-        currentNote = args.note
+        currentNote = args.note!!
 
 
         binding.editNoteTitle.setText(currentNote.noteTitle)
@@ -70,22 +71,6 @@ class UpdateNoteFragment : Fragment(), MenuProvider {
         }
     }
 
-    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-        menu.clear()
-        menuInflater.inflate(R.menu.menu_update_note, menu)
-
-    }
-
-    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-        return when (menuItem.itemId) {
-            R.id.deleteMenu -> {
-                deleteNote()
-                true
-            }
-            else -> false
-        }
-    }
-
 
     private fun deleteNote() {
         activity?.let {
@@ -102,6 +87,30 @@ class UpdateNoteFragment : Fragment(), MenuProvider {
             }.create()
                 .show()
         }
+    }
+
+
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menu.clear()
+        menuInflater.inflate(R.menu.menu_delete_note, menu)
+
+    }
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        return when (menuItem.itemId) {
+            R.id.deleteMenu -> {
+                deleteNote()
+                true
+            }
+
+            else -> false
+        }
+    }
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        updateNoteBinding = null
     }
 
 }

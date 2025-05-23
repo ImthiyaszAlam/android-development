@@ -1,8 +1,10 @@
 package com.imthiyas.notes_app.ui
 
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
@@ -15,7 +17,7 @@ import com.imthiyas.notes_app.viewmodel.NoteViewModelFactory
 class MainActivity : AppCompatActivity() {
 
 
-     lateinit var noteViewModel: NoteViewModel
+    lateinit var noteViewModel: NoteViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +30,15 @@ class MainActivity : AppCompatActivity() {
         }
 
         setupViewModel()
+
+        supportActionBar?.setBackgroundDrawable(
+            ColorDrawable(
+                ContextCompat.getColor(
+                    this,
+                    R.color.blueLight
+                )
+            )
+        )
     }
 
     private fun setupViewModel() {

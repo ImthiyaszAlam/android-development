@@ -9,4 +9,11 @@
     <string name="save">Save</string>
     <string name="search">Search</string>
     <string name="update_note">Update</string>
+    <string name="enter_the_title">Enter the title</string>
+    <string name="update_">Update</string>
+    <string name="enter_the_description">Enter the description</string>
+    <string name="editfab">editFab</string>
+    <string name="image">image</string>
+    <string name="enter_the_title_">Enter the title</string>
+    <string name="enter_the_description_">Enter the description</string>
 </resources>

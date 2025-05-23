@@ -9,6 +9,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
@@ -39,6 +40,8 @@ class AddNoteFragment : Fragment(), MenuProvider {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+requireActivity().window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.blue)
+
 
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
@@ -47,10 +50,6 @@ class AddNoteFragment : Fragment(), MenuProvider {
 
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        fragmentAddNoteBinding = null
-    }
 
     private fun saveNote(view: View) {
         val noteTitle = binding.addNoteTitle.text.toString().trim()
@@ -82,6 +81,11 @@ class AddNoteFragment : Fragment(), MenuProvider {
 
             else -> false
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        fragmentAddNoteBinding = null
     }
 
 }
